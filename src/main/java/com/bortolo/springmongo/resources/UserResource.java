@@ -53,6 +53,15 @@ public class UserResource {
 		
 	}
 	
+	@RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+	public ResponseEntity<Void> deleteById(@PathVariable String id) {
+		
+		service.delete(id);
+		
+		return ResponseEntity.noContent().build();
+		
+	}
+	
 }
 
 
