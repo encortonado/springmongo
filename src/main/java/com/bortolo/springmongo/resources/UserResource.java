@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,5 +28,14 @@ public class UserResource {
 		List<UserDTO> listDTO = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	} // .ok() metodo que instancia o responseEntity já com codigo de resposta http de sucesso. (200 ok)
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
+	public ResponseEntity<UserDTO> findById(@PathVariable(required = true) String id) {
+		
+		User user = service.findById(id);
+		UserDTO userDTO = new UserDTO(user);
+		
+		return ResponseEntity.ok().body(userDTO);
+	}
 	
 }
